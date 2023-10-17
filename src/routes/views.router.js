@@ -5,7 +5,6 @@ import { dbM as dbCart } from './api/cart.router.js';
 // Importar todos los routers;
 export const router = Router();
 
-
 router.get("/products", async (req, res) => {
 
     try {
@@ -16,10 +15,10 @@ router.get("/products", async (req, res) => {
         res.render("products", {
             hasNextPage: productos.hasNextPage,
             hasPrevPage: productos.hasPrevPage,
-            nextLink: productos.nextLink ? `http://localhost:8080/products?page=${productos.page + 1}&limit=${limit?limit:10}` : null,
-            prevLink: productos.prevLink ? `http://localhost:8080/products?page=${productos.page - 1}&limit=${limit?limit:10}` : null,
+            nextLink: productos.nextLink ? `http://localhost:8080/products?page=${productos.page + 1}&limit=${limit ? limit : 10}` : null,
+            prevLink: productos.prevLink ? `http://localhost:8080/products?page=${productos.page - 1}&limit=${limit ? limit : 10}` : null,
             productos: productos.payload,
-            
+
         })
     } catch (e) {
         res.send(500).json({ error: e })
@@ -42,18 +41,15 @@ router.get("/products/:pid", async (req, res) => {
 })
 
 router.get("/carts/:cid", async (req, res) => {
-    try {
-        const { cid } = req.params;
-
-        if (!cid) {
-            return res.status(400).json({ error: "Cid is empty" });
-        }
-
-        const cart = await dbCart.getCartById(cid);
-
-        res.render("carts", { productos: cart.products });
+ try {
+        const { cid } = req.params
+        let on = await dbCart.getCartById(cid)
+        let productos = JSON.parse(JSON.stringify(on))
+        res.render("carts", {
+            productos: productos.products
+        })
     } catch (e) {
-        res.status(500).json({ error: e });
+        res.send(500).json({ error: e })
     }
 });
 

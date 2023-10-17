@@ -100,3 +100,4 @@ router.put("/:cid/product/:pid", async (req, res) => {
         }
     } else res.status(400).json({ err: "Cid and Pid must be provided" })
 })
+

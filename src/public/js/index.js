@@ -23,16 +23,17 @@ const resetForm = () => {
 let deleteButton = document.querySelectorAll('.btn-success')
 console.log(deleteButton)
 deleteButton.forEach((btn) => {
-    btn.addEventListener('click',async (e) => {
+    btn.addEventListener('click', async (e) => {
         const idProduct = e.target.getAttribute('data-id')
         console.log(idProduct)
         try {
-            await axios.post("http://localhost:8080/api/carts/643de776b2189188a9bcdaf3/product/"+idProduct)
+            await axios.post("http://localhost:8080/api/carts/6528437ecfd95e4cbf9f8347/product/" + idProduct)
             alert("Producto agregado")
         } catch (error) {
             alert(error.message)
         }
     })
 })
+
 
 

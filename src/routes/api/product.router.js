@@ -11,10 +11,10 @@ router.get("/", async (req, res) => {
 
     try {
         const { limit, page, sort } = req.query
-        let filterQuery={...req.query}
-        if(limit) delete filterQuery.limit
-        if(page) delete filterQuery.page
-        if(sort) delete filterQuery.sort
+        let filterQuery = { ...req.query }
+        if (limit) delete filterQuery.limit
+        if (page) delete filterQuery.page
+        if (sort) delete filterQuery.sort
         console.log(filterQuery)
         let arrProduct = await dbM.getProducts(limit, page, sort, filterQuery)
         res.status(200).json({
@@ -126,6 +126,10 @@ router.delete("/:pid", async (req, res) => {
 })
 
 export const productIdFinderDBM = dbM.getProductById
+
+
+
+
 
 
 
